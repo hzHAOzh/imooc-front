@@ -4,9 +4,9 @@
       class="relative flex overflow-x-auto p-1 text-xs text-zinc-600 overflow-hidden"
     >
       <li
-        class="z-20 fixed top-0 right-[-1px] h-4 px-1 flex items-center bg-white shadow-l-white"
+        class="fixed top-0 right-0 h-4 px-1 flex items-center bg-white dark:bg-zinc-900 z-20 shadow-l-white dark:shadow-l-zinc"
       >
-        <m-svg-icon class="w-1.5 h-1.5" name="hamburger"></m-svg-icon>
+        <m-svg-icon class="w-1.5 h-1.5" name="hamburger" />
       </li>
       <li
         v-for="item in data"
