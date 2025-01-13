@@ -11,6 +11,7 @@
       ></li>
       <li
         class="fixed top-0 right-0 h-4 px-1 flex items-center bg-white dark:bg-zinc-900 z-20 shadow-l-white dark:shadow-l-zinc"
+        @click="onShowPopup"
       >
         <m-svg-icon class="w-1.5 h-1.5" name="hamburger" />
       </li>
@@ -27,10 +28,14 @@
         {{ item.name }}
       </li>
     </ul>
+    <m-popup v-model="isVisable">
+      <Menu :categorys="data" @onItemClick="onItemClick"></Menu>
+    </m-popup>
   </div>
 </template>
 
 <script setup>
+import Menu from '@/views/main/components/menu/index.vue'
 import { useScroll } from '@vueuse/core'
 import { onBeforeUpdate, ref, watch } from 'vue'
 defineProps({
@@ -73,6 +78,9 @@ watch(currentCategoryIndex, (val) => {
 const onItemClick = (index) => {
   currentCategoryIndex.value = index
 }
+// 控制 popup 展示
+const isVisable = ref(false)
+const onShowPopup = () => (isVisable.value = true)
 </script>
 
 <style lang="scss" scoped></style>
