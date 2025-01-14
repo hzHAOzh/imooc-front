@@ -1,10 +1,10 @@
 import { getCategory } from '@/api/category'
-import { ALL_CATEGORY_ITEM } from '@/constants'
+import { ALL_CATEGORY_ITEM, CATEGORY_NOMAR_DATA } from '@/constants'
 
 export default {
   namespaced: true, // 开启独立作用域
   state: () => ({
-    categorys: [ALL_CATEGORY_ITEM]
+    categorys: [CATEGORY_NOMAR_DATA]
   }),
   mutations: {
     setCategorys(state, categorys) {
