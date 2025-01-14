@@ -7,7 +7,7 @@
       <!-- active: 用于激活状态，即触摸 item 项时背景会变灰 -->
       <li
         class="text-lg text-zinc-900 dark:text-zinc-300 px-2 py-1.5 duration-100 active:bg-zinc-100 dark:active:bg-zinc-900"
-        v-for="(item, index) in categorys"
+        v-for="(item, index) in $store.getters.categorys"
         :key="item.id"
         @click="$emit('onItemClick', index)"
       >
@@ -16,12 +16,3 @@
     </ul>
   </div>
 </template>
-
-<script setup>
-defineProps({
-  categorys: {
-    type: Array,
-    required: true
-  }
-})
-</script>

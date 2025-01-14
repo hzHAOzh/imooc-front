@@ -16,7 +16,7 @@
         <m-svg-icon class="w-1.5 h-1.5" name="hamburger" />
       </li>
       <li
-        v-for="(item, index) in data"
+        v-for="(item, index) in $store.getters.categorys"
         :ref="setItemRef"
         :key="item.id"
         @click="onItemClick(index)"
@@ -29,7 +29,7 @@
       </li>
     </ul>
     <m-popup v-model="isVisable">
-      <Menu :categorys="data" @onItemClick="onItemClick"></Menu>
+      <Menu @onItemClick="onItemClick"></Menu>
     </m-popup>
   </div>
 </template>
@@ -38,12 +38,6 @@
 import Menu from '@/views/main/components/menu/index.vue'
 import { useScroll } from '@vueuse/core'
 import { onBeforeUpdate, ref, watch } from 'vue'
-defineProps({
-  data: {
-    type: Array,
-    required: true
-  }
-})
 
 // 滑块
 const sliderStyle = ref({
