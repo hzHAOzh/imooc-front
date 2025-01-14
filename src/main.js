@@ -6,6 +6,8 @@ import router from './router'
 import store from './store/index'
 import './styles/index.scss'
 import { useREM } from './utils/flexible'
+import useTheme from './utils/theme'
 
 useREM()
+useTheme()
 createApp(App).use(router).use(mLibs).use(store).mount('#app')

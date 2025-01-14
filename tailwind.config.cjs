@@ -1,5 +1,7 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js}'],
+  // 手动切换暗黑模式
+  darkMode: 'class',
   theme: {
     extend: {
       fontSize: {

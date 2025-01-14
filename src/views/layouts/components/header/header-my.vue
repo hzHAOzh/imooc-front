@@ -26,7 +26,7 @@
     <!-- 气泡区域，登录后展示操作列表 -->
     <div class="w-[140px] overflow-hidden">
       <div
-        class="flex items-center p-1 cursor-pointer rounded hover:bg-zinc-100/60 dark:hover:bg-zinc-900"
+        class="flex items-center p-1 cursor-pointer rounded hover:bg-zinc-100/60 dark:hover:bg-zinc-800"
         v-for="item in menuArr"
         :key="item.id"
       >
