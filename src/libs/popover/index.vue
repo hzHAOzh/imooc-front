@@ -19,12 +19,21 @@
     </transition>
   </div>
 </template>
+
 <script>
+const PROP_TOP = 'top'
+const PROP_LEFT = 'left'
+const PROP_RIGHT = 'right'
+const PROP_BOTTOM = 'bottom'
 const PROP_TOP_LEFT = 'top_left'
 const PROP_TOP_RIGHT = 'top_right'
 const PROP_BOTTOM_LEFT = 'bottom_left'
 const PROP_BOTTOM_RIGHT = 'bottom_right'
 const placementEnum = [
+  PROP_TOP,
+  PROP_LEFT,
+  PROP_RIGHT,
+  PROP_BOTTOM,
   PROP_TOP_LEFT,
   PROP_TOP_RIGHT,
   PROP_BOTTOM_LEFT,
@@ -34,10 +43,9 @@ const placementEnum = [
 // 气泡延迟关闭时间，单位 ms
 const DELAY_TIME = 200
 </script>
-
 <script setup>
-import { useElementSize } from '@vueuse/core'
 import { nextTick, ref, watch } from 'vue'
+
 const props = defineProps({
   placement: {
     type: String,
@@ -59,10 +67,8 @@ let timer = null
 
 // 鼠标移入事件
 const onMouseenter = () => {
+  if (timer) clearTimeout(timer)
   isVisable.value = true
-  if (timer) {
-    clearTimeout(timer)
-  }
 }
 // 鼠标移出事件
 const onMouseleave = () => {
@@ -82,6 +88,15 @@ const contentStyle = ref({
   left: '0px'
 })
 
+// 获取元素的宽高尺寸
+const getElementSize = (target) => {
+  return {
+    width: target.offsetWidth,
+    height: target.offsetHeight
+  }
+}
+
+// 气泡展示时计算样式对象
 watch(isVisable, (val) => {
   if (!val) return
   /**
@@ -90,28 +105,46 @@ watch(isVisable, (val) => {
    * 要用 nextTick 等待 DOM 渲染完成后，在执行的回调中进行相关处理
    */
   nextTick(() => {
+    let top = 0,
+      left = 0
+    const { width: referenceWidth, height: referenceHeight } = getElementSize(
+      referenceTarget.value
+    )
+    const { width: contentWidth, height: contentHeight } = getElementSize(
+      contentTarget.value
+    )
+
     switch (props.placement) {
+      // top、left、right、bottom 的计算式中出现的 5 用于让弹层和媒介有个间隙，好看一点
+      case PROP_TOP:
+        top = -(contentHeight + 5)
+        left = -(contentWidth / 2) + referenceWidth / 2
+        break
+      case PROP_LEFT:
+        top = -(contentHeight / 2) + referenceHeight / 2
+        left = -(contentWidth + 5)
+        break
+      case PROP_RIGHT:
+        top = -(contentHeight / 2) + referenceHeight / 2
+        left = referenceWidth + 5
+        break
+      case PROP_BOTTOM:
+        top = referenceHeight + 5
+        left = -(contentWidth / 2) + referenceWidth / 2
+        break
       case PROP_TOP_LEFT:
-        contentStyle.value.top = 0
-        contentStyle.value.left =
-          -useElementSize(contentTarget.value).width + 'px'
+        left = -contentWidth
         break
       case PROP_TOP_RIGHT:
-        contentStyle.value.top = 0
-        contentStyle.value.left =
-          useElementSize(contentTarget.value).width + 'px'
+        left = referenceWidth
         break
       case PROP_BOTTOM_LEFT:
-        contentStyle.value.top =
-          useElementSize(contentTarget.value).height + 'px'
-        contentStyle.value.left =
-          -useElementSize(contentTarget.value).width + 'px'
+        top = referenceHeight
+        left = -contentWidth + 30
         break
       case PROP_BOTTOM_RIGHT:
-        contentStyle.value.top =
-          useElementSize(contentTarget.value).height + 'px'
-        contentStyle.value.left =
-          -useElementSize(contentTarget.value).width + 'px'
+        top = referenceHeight
+        left = referenceWidth + 30
         break
     }
 
