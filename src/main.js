@@ -1,6 +1,7 @@
 import 'virtual:svg-icons-register'
 import { createApp } from 'vue'
 import App from './App.vue'
+import directives from './directives'
 import mLibs from './libs'
 import router from './router'
 import store from './store/index'
@@ -10,4 +11,4 @@ import useTheme from './utils/theme'
 
 useREM()
 useTheme()
-createApp(App).use(router).use(mLibs).use(store).mount('#app')
+createApp(App).use(router).use(mLibs).use(store).use(directives).mount('#app')
