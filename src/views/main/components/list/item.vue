@@ -40,7 +40,7 @@
     </p>
     <!-- 作者 -->
     <div class="flex items-center mt-1 px-1">
-      <img v-lazy class="h-2 w-2 rounded-full" :src="data.avatar" />
+      <img class="h-2 w-2 rounded-full" :src="data.avatar" />
       <span class="text-sm text-zinc-500 ml-1">{{ data.author }}</span>
     </div>
   </div>

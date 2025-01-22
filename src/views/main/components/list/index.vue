@@ -8,7 +8,7 @@
       :picturePreReading="false"
     >
       <template v-slot="{ item, width }">
-        <item-vue :data="item" :width="width" @click="onToPins" />
+        <item-vue :data="item" :width="width" />
       </template>
     </m-waterfall>
   </div>
